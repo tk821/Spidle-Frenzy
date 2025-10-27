@@ -1,10 +1,18 @@
 const game = {
+    costMultiplier : 1.1,
+
+    currentWeb: 0,
+
     clickPower: 1,
+    upgradePower : 1,
 
     webs: [
         {
-            webStrands : 0,
-            modifiers : []
+            strands : {
+                cost : 10,
+                counter : 0
+            },
+            modifiers : [],
         }
     ],
     
@@ -15,8 +23,11 @@ const game = {
 };
 
 
-const flies = document.getElementById("flies");
+const fliesCounter = document.getElementById("flies");
 const catchButton = document.getElementById("catch");
+const spinStrandButton = document.querySelector(".strand.button");
+const strandCounter = document.querySelector(".strand.counter");
+const strandCost = document.querySelector(".strand.cost");
 
 
 function tick() {
@@ -25,15 +36,37 @@ function tick() {
     updateUI();
 }
 
+function getTotalCost(baseCost, count) {
+    return Math.ceil(baseCost * (Math.pow(game.costMultiplier, count) - 1) / (game.costMultiplier - 1));
+}
+
+function upgrade(type, counterUI, costUI) {
+    const totalCost = getTotalCost(type.cost, game.upgradePower);
+
+    if (totalCost > game.flies.counter) return;
+
+    type.counter += game.upgradePower;
+    game.flies.counter -= totalCost;
+    type.cost = Math.ceil(type.cost * Math.pow(1.1, game.upgradePower));
+
+    counterUI.textContent = type.counter;
+    costUI.textContent = Math.ceil(type.cost);
+    updateUI();
+}
+
 
 function updateUI() {
-    flies.textContent = "Flies: " + Math.floor(game.flies.counter);
+    fliesCounter.textContent = "Flies: " + Math.floor(game.flies.counter);
 }
 
 
 catchButton.addEventListener("click", () => {
     game.flies.counter += game.clickPower;
-    flies.textContent = "Flies: " + game.flies.counter;
+    updateUI();
+});
+
+spinStrandButton.addEventListener("click", () => {
+    upgrade(game.webs[game.currentWeb].strands, strandCounter, strandCost);
 });
 
 setInterval(tick, 50);
