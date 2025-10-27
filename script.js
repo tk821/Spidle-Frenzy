@@ -10,7 +10,8 @@ const game = {
         {
             strands : {
                 cost : 10,
-                counter : 0
+                counter : 0,
+                perSecond : 0.1 //how much each strand gives per second (base)
             },
             modifiers : [],
         }
@@ -36,6 +37,12 @@ function tick() {
     updateUI();
 }
 
+function calculatePerSecond() {
+    let fliesPerSecond = 0;
+    fliesPerSecond += (game.webs.map(web => web.strands.counter * web.strands.perSecond)).reduce((acc, val) => acc + val, 0);
+    game.flies.perSecond = fliesPerSecond;
+}
+
 function getTotalCost(baseCost, count) {
     return Math.ceil(baseCost * (Math.pow(game.costMultiplier, count) - 1) / (game.costMultiplier - 1));
 }
@@ -51,6 +58,7 @@ function upgrade(type, counterUI, costUI) {
 
     counterUI.textContent = type.counter;
     costUI.textContent = Math.ceil(type.cost);
+    calculatePerSecond();
     updateUI();
 }
 
