@@ -10,9 +10,10 @@ const game = {
         {
             strands : {
                 cost : 10,
-                counter : 0,
-                perSecond : 0.1 //how much each strand gives per second (base)
+                counter : 1,
+                perMinute : 1 //how much each strand gives per minute (base)
             },
+
             modifiers : [],
         }
     ],
@@ -24,16 +25,18 @@ const game = {
 };
 
 
-const fliesCounter = document.getElementById("flies");
-const catchButton = document.getElementById("catch");
+const fliesCounter = document.querySelector(".flies.counter");
+const hunt = document.querySelector(".flies.button.hunt");
 const spinStrandButton = document.querySelector(".strand.button");
 const strandCounter = document.querySelector(".strand.counter");
 const strandCost = document.querySelector(".strand.cost");
+const fps = document.getElementById("fps");
 
 
 function tick() {
     const ticksPerSecond = 20;
     game.flies.counter += game.flies.perSecond / ticksPerSecond;
+    
     updateUI();
 }
 
@@ -59,16 +62,21 @@ function upgrade(type, counterUI, costUI) {
     counterUI.textContent = type.counter;
     costUI.textContent = Math.ceil(type.cost);
     calculatePerSecond();
+    updateFPS();
     updateUI();
+}
+
+function updateFPS() {
+    fps.textContent = Math.floor(game.flies.perSecond * 10)/10;
 }
 
 
 function updateUI() {
-    fliesCounter.textContent = "Flies: " + Math.floor(game.flies.counter);
+    fliesCounter.textContent = Math.floor(game.flies.counter);
 }
 
 
-catchButton.addEventListener("click", () => {
+hunt.addEventListener("click", () => {
     game.flies.counter += game.clickPower;
     updateUI();
 });

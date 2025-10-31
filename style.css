@@ -2,3 +2,15 @@
     background-color: black;
     color: white;
 }
+
+body {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}

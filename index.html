@@ -8,22 +8,78 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="flies">
-        Flies: 0
+    <div class="web row">
+        <div>
+            Flies per second: 
+            <span id="fps">
+                0
+            </span>
+        </div>
+        <div>
+            Flies:
+            <span class="flies counter">
+                0
+            </span>
+        </div>
+        <button class="flies button hunt">
+            Hunt
+        </button>
+        
+        
     </div>
-    <button id="catch">
-        Catch Fly
-    </button>
 
-    <div>
-        Web Strands: 
-        <span class="strand counter"> 0 </span>
+    <div class="web row">
+        <div>
+            Flies in Web:
+            <span class="web flies-in-web">
+                0
+            </span>
+        </div>
+        <button class="web harvest">
+            Harvest
+        </button>
+        <div>
+            Catches per minute:
+            <span class="web cpm">
+                1 
+            </span>
+        </div>
+        <div >
+            Web Capacity:
+            <span  class="web max-flies">
+                1
+            </span>
+        </div>
+        <div>
+            Web Strands:
+            <span class="web strand counter"> 1 </span>
+        </div>
+        <button class="web strand button">
+            Spin Strand
+            <span class="web strand cost"> 10 </span>
+        </button>
     </div>
-    <button class="strand button">
-        Spin Strand
-        <span class="strand cost"> 10 </span>
-    </button>
 
+    <div class="buy-buildings row">
+        <div>
+            Open Building Slots: 
+            <span class="buildings slots"> 0 </span>
+        </div>
+        <div class="farm column">
+            <button class="farm button"> Build Farm 
+                <span class="farm cost"> 10 </span>
+            </button>
+        </div>
+    </div>
+
+    <div class="list-buildings row">
+        <div>
+            Farms: 
+            <span class="farm counter">
+                0
+            </span>
+        </div>
+    </div>
 
 </body>
 </html>
